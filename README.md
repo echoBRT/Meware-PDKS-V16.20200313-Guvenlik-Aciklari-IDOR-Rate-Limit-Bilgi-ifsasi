@@ -22,6 +22,8 @@ Sistem, yetki kontrolü yapmadan tüm kullanıcıların ID, ad soyad ve kullanı
 GET /api/Dynamic?Name=tokenid%3D...%26siciller%3D607%26point%3Dtalep%26islemtipi%3Di HTTP/2
 Host: meyerapi.tcddteknik.com.tr
 
+<img width="786" height="329" alt="kullanıcı idleri" src="https://github.com/user-attachments/assets/6bc31a77-ba8b-4969-9692-cf6adafe460d" />
+
 Sistem, yetki kontrolü yapmadan tüm kullanıcıların ID, ad soyad ve kullanıcı adı bilgilerini döndürmektedir.
 
-<img width="786" height="329" alt="kullanıcı idleri" src="https://github.com/user-attachments/assets/8eb0f54b-6c62-41bf-9833-e83f0f35c629" />
+

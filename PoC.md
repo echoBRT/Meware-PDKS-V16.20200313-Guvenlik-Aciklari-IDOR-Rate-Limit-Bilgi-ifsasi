@@ -31,7 +31,7 @@ Host: meyerapi.tcddteknik.com.tr
 Sistem, yetki kontrolü yapmadan tüm kullanıcıların ID, ad soyad ve kullanıcı adı bilgilerini döndürmektedir.
 
 
-##  ZAFİYET 2: Rate Limit Eksikliği - Sınırsız Talep Oluşturma
+##  ZAFİYET 2: Rate Limit Eksikliği (DoS) - Sınırsız Talep Oluşturma
 ### Açıklama
 Sistem, bir kullanıcının belirli bir zaman diliminde gönderebileceği istek sayısını sınırlamamaktadır. Bir kullanıcı sınırsız sayıda fazla mesai ve ziyaretçi talebi oluşturabilmektedir.
 
@@ -79,38 +79,58 @@ pentestnk kendi yetkisiyle, hiçbir yetki kontrolü olmadan başka bir kullanıc
 
 <img width="888" height="396" alt="idor 5" src="https://github.com/user-attachments/assets/941ba1bc-4370-479a-81dd-0257032109e5" />
 
-
-
 ┌─────────────────────────────────────────────────────────────────────────────┐
 │                    SUPPLY CHAIN SALDIRI ZİNCİRİ                              │
 ├─────────────────────────────────────────────────────────────────────────────┤
 │                                                                              │
-│  CVE-1 (Bilgi İfşası)                                                       │
+│  🔴 CVE-1: Bilgi İfşası (CWE-200) - CVSS: 4.3                               │
 │  ┌─────────────────────────────────────────────────────────────────────┐   │
-│  │ Saldırgan, tüm personel ID'lerini ele geçirir                       │   │
-│  │ 607 (Gözde ), 350 (Uğur ), 531 (meyer admin)...            │   │
+│  │  Saldırgan, /api/Dynamic endpoint'ine istek gönderir                │   │
+│  │                                                                      │   │
+│  │  Yanıtta tüm kullanıcıların bilgileri döner:                        │   │
+│  │  • ID: 607  → AdSoyad: GÖZDE BAŞ                                    │   │
+│  │  • ID: 2710 → AdSoyad: pentestnk                                    │   │
+│  │  • ID: 350  → AdSoyad: UĞUR COŞKUN                                  │   │
+│  │  • ID: 531  → AdSoyad: meyer admin                                  │   │
+│  │                                                                      │   │
+│  │  Saldırgan, UĞUR COŞKUN'un ID'sinin 350 olduğunu öğrenir.           │   │
 │  └─────────────────────────────────────────────────────────────────────┘   │
 │                                      │                                      │
 │                                      ▼                                      │
-│  CVE-2 (IDOR)                                                               │
+│                                                                              │
+│  🔴 CVE-2: IDOR (CWE-639) - CVSS: 8.2                                       │
 │  ┌─────────────────────────────────────────────────────────────────────┐   │
-│  │ Saldırgan, ele geçirdiği ID'leri kullanarak herkes adına            │   │
-│  │ fazla mesai talebi oluşturur                                         │   │
+│  │  Saldırgan, kendi ID'si (2710) ile istek gönderir:                  │   │
+│  │  GET /api/Dynamic?Name=...&siciller=2710&point=talep&islemtipi=i    │   │
+│  │                                                                      │   │
+│  │  Ardından parametreyi değiştirir:                                   │   │
+│  │  GET /api/Dynamic?Name=...&siciller=350&point=talep&islemtipi=i     │   │
+│  │                                                                      │   │
+│  │  Sonuç: pentestnk (ID:2710), UĞUR COŞKUN (ID:350) adına             │   │
+│  │         fazla mesai talebi oluşturur!                                │   │
 │  └─────────────────────────────────────────────────────────────────────┘   │
 │                                      │                                      │
 │                                      ▼                                      │
-│  CVE-3 (Rate Limit)                                                         │
+│                                                                              │
+│  🔴 CVE-3: Rate Limit Eksikliği (CWE-770) - CVSS: 7.5                       │
 │  ┌─────────────────────────────────────────────────────────────────────┐   │
-│  │ Saldırgan, herkes adına SINIRSIZ sayıda talep oluşturur             │   │
-│  │ → Veritabanı şişer                                                   │   │
-│  │ → Sistem çöker (DoS)                                                 │   │
-│  │ → Kurumsal dolandırıcılık (sahte fazla mesai ödemeleri)              │   │
+│  │  Saldırgan, aynı işlemi art arda 1000+ kez tekrarlar:               │   │
+│  │                                                                      │   │
+│  │  for i in {1..100000}; do                                           │   │
+│  │    curl "https://api.../Dynamic?Name=...&siciller=350&islemtipi=i"  │   │
+│  │  done                                                               │   │
+│  │                                                                      │   │
+│  │  Sonuçlar:                                                           │   │
+│  │  → Veritabanı şişer (milyonlarca sahte kayıt)                        │   │
+│  │  → Sistem kaynakları tükenir (DoS)                                   │   │
+│  │  → Kurumsal dolandırıcılık (sahte fazla mesai ödemeleri)             │   │
 │  └─────────────────────────────────────────────────────────────────────┘   │
 │                                      │                                      │
-│                                      
+│                                      ▼                                      │
+│                                                                              │
+│              🔴 KRİTİK: TAM ELE GEÇİRME (CVSS: 8.6) 🔴                       │
 │                                                                              │
 └─────────────────────────────────────────────────────────────────────────────┘
-
 
 
 

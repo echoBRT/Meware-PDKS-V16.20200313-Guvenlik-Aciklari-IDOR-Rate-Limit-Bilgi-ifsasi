@@ -79,18 +79,18 @@ pentestnk kendi yetkisiyle, hiçbir yetki kontrolü olmadan başka bir kullanıc
 
 <img width="888" height="396" alt="idor 5" src="https://github.com/user-attachments/assets/941ba1bc-4370-479a-81dd-0257032109e5" />
 
-### Supply Chain Saldırı Zinciri (3 CVE)
+### Supply Chain Saldırı Zinciri
 
-CVE-1 (Bilgi İfşası)                                          
+1 (Bilgi İfşası)                                          
  Saldırgan tüm personel ID'lerini ele geçirir                  
 "U*** Ç*** ID = 350"                                        
                                                                
                                                                  
- CVE-2 (IDOR)                                                  
+ 2 (IDOR)                                                  
  Saldırgan ele geçirdiği ID ile başkası adına işlem yapar      
  "siciller=350 → U*** Ç*** adına talep"                      
                                                                 
-CVE-3 (Rate Limit)                                            
+3 (Rate Limit)                                            
  Saldırgan aynı işlemi 100.000+ kez tekrarlar                  
 "Sistem çöker, veritabanı şişer."
 

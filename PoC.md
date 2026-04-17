@@ -18,7 +18,6 @@ Meware PDKS (Personel Devam Kontrol Sistemi) V16.20200313 versiyonunda **3 adet 
 Sistem, yetki kontrolü yapmadan tüm kullanıcıların ID, ad soyad ve kullanıcı adı bilgilerini döndürmektedir.
 
 PoC (Proof of Concept)
-![Uploading kullanıcı idleri.png…]()
 http
 GET /api/Dynamic?Name=tokenid%3D...%26siciller%3D607%26point%3Dtalep%26islemtipi%3Di HTTP/2
 

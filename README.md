@@ -72,7 +72,7 @@ Aynı istekte siciller=2710 parametresi silinip yerine siciller=350 yazılır.
 
 İstek tekrar gönderilir.
 
-Sunucu HTTP/2 200 OK yanıtı döner ve Uğur Coşkun adına fazla mesai talebi oluşturulmuş olur.
+Sunucu HTTP/2 200 OK yanıtı döner ve U*** Ç*** adına fazla mesai talebi oluşturulmuş olur.
 
 pentestnk kendi yetkisiyle, hiçbir yetki kontrolü olmadan başka bir kullanıcı adına işlem yapabilmiştir.
 

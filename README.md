@@ -21,7 +21,7 @@ Sistem, yetki kontrolü yapmadan tüm kullanıcıların ID, ad soyad ve kullanı
 http
 GET /api/Dynamic?Name=tokenid%3D...%26siciller%3D607%26point%3Dtalep%26islemtipi%3Di HTTP/2
 
-Host: meyerapi.tcddteknik.com.tr
+Host: meyerapi.******.com.tr
 
 
 <img width="786" height="329" alt="kullanıcı idleri" src="https://github.com/user-attachments/assets/c3bf34ab-7120-4a5d-b1e0-fbc0475f870c" />
@@ -38,7 +38,7 @@ Sistem, bir kullanıcının belirli bir zaman diliminde gönderebileceği istek 
 ### (Proof of Concept)
 # 100 adet ardışık talep
 for i in {1..100}; do
-    curl "https://meyerapi.tcddteknik.com.tr/api/Dynamic?Name=...&islemtipi=i"
+    curl "https://meyerapi.******.com.tr/api/Dynamic?Name=...&islemtipi=i"
 done
 
 <img width="782" height="330" alt="Ratelimit 1" src="https://github.com/user-attachments/assets/80c12577-2630-4478-abbc-752c032d313c" />
